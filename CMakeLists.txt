@@ -16,8 +16,8 @@ config_target_compile_features(project_global_settings) # c++20, etc.
 config_target_compile_options(project_global_settings) # -O3 -m64 -msse, etc.
 
 # =============================================================================
-# Adds external submodules (e.g. googletest, spdlog, etc.)
-# add_subdirectory(external)
+# Adds external submodules (e.g. doctest, spdlog, etc.)
+add_subdirectory(external)
 
 # =============================================================================
 # Adds external submodules (e.g. Clean Architecture)

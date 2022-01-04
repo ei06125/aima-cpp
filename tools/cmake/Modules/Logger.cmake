@@ -24,7 +24,7 @@ else()
     set(BoldCyan "${Esc}[1;36m")
     set(BoldWhite "${Esc}[1;37m")
   else()
-    message("[CORE][INFO] Configuring for Windows")
+    message("[CORE][INFO] Configuring for Windows -- unimplemented")
   endif()
 endif()
 
