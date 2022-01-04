@@ -1,7 +1,11 @@
-if($ENV{CLION_IDE}) # TODO: Do the same for CLion
+# Copyright ei06125. All Rights Reserved.
 
+if($ENV{CLION_IDE}) # TODO: Do the same for CLion
+  message("[CORE][INFO] Configuring CLION colors")
 else()
+  message("[CORE][INFO] Configuring NON-CLION colors")
   if(NOT WIN32)
+    message("[CORE][INFO] Configuring for Linux or Apple")
     string(ASCII 27 Esc)
     set(ColourReset "${Esc}[m")
     set(ColourBold "${Esc}[1m")
@@ -19,6 +23,8 @@ else()
     set(BoldMagenta "${Esc}[1;35m")
     set(BoldCyan "${Esc}[1;36m")
     set(BoldWhite "${Esc}[1;37m")
+  else()
+    message("[CORE][INFO] Configuring for Windows")
   endif()
 endif()
 
@@ -31,11 +37,15 @@ set(CMAKE_LOG_LEVEL_FATAL 7)
 
 # Sets the CMAKE_CURRENT_LOG_LEVEL to the default or command line option
 option(CMAKE_CURRENT_LOG_LEVEL "Set CMake current log level"
-       ${CMAKE_LOG_LEVEL_INFO}
+       ${CMAKE_LOG_LEVEL_TRACE}
 )
 
 if(CMAKE_CURRENT_LOG_LEVEL STREQUAL "OFF")
+  message("[CORE][WARNING] CMAKE_CURRENT_LOG_LEVEL is not set")
   set(CMAKE_CURRENT_LOG_LEVEL ${CMAKE_LOG_LEVEL_INFO})
+  message(
+    "[CORE][WARNING] CMAKE_CURRENT_LOG_LEVEL set to ${CMAKE_CURRENT_LOG_LEVEL}"
+  )
 endif()
 
 function(LogMessage msg log_level)
@@ -46,7 +56,7 @@ endfunction()
 
 function(LogTrace msg)
   logmessage(
-    "${ColourBold} [STATUS] ${ColourReset} ${msg}" ${CMAKE_LOG_LEVEL_TRACE}
+    "${ColourBold} [TRACE] ${ColourReset} ${msg}" ${CMAKE_LOG_LEVEL_TRACE}
   )
 endfunction(LogTrace)
 
@@ -65,11 +75,9 @@ function(LogWarn msg)
 endfunction(LogWarn)
 
 function(LogError msg)
-  message(SEND_ERROR "${BoldRed} [ERROR] ${ColourReset} ${msg}") # CMAKE_LOG_LEV
-                                                                 # EL_ERROR
+  message(SEND_ERROR "${BoldRed} [ERROR] ${ColourReset} ${msg}")
 endfunction(LogError)
 
 function(LogFatal msg)
-  message(FATAL_ERROR "${BoldRed} [FATAL] ${ColourReset} ${msg} ") # CMAKE_LOG_L
-                                                                   # EVEL_FATAL
+  message(FATAL_ERROR "${BoldRed} [FATAL] ${ColourReset} ${msg} ")
 endfunction(LogFatal)

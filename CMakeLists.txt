@@ -1,24 +1,12 @@
-cmake_minimum_required(VERSION 3.20.0)
-project(cpp-clean-architecture)
+cmake_minimum_required(VERSION 3.21)
+project(aima-cpp)
 
 set(ROOT_DIR ${PROJECT_SOURCE_DIR})
 
 # =============================================================================
 # includes helper configuration files
-include(${ROOT_DIR}/tools/cmake/Cache.cmake)
-include(${ROOT_DIR}/tools/cmake/Conan.cmake)
-include(${ROOT_DIR}/tools/cmake/ConfigTargetCompileDefinitions.cmake)
-include(${ROOT_DIR}/tools/cmake/ConfigTargetCompileFeatures.cmake)
-include(${ROOT_DIR}/tools/cmake/ConfigTargetCompileOptions.cmake)
-include(${ROOT_DIR}/tools/cmake/Doxygen.cmake)
-include(${ROOT_DIR}/tools/cmake/Logger.cmake)
-include(${ROOT_DIR}/tools/cmake/PreventInSourceBuilds.cmake)
-include(${ROOT_DIR}/tools/cmake/Sanitizers.cmake)
-include(${ROOT_DIR}/tools/cmake/StandardProjectSettings.cmake)
-include(${ROOT_DIR}/tools/cmake/StaticAnalyzers.cmake)
-
-# =============================================================================
-find_package(Threads REQUIRED)
+set(CMAKE_CURRENT_LOG_LEVEL 2) # TRACE
+include(tools/cmake/BuildTools.cmake)
 
 # =============================================================================
 # creates an Interface library to pass-down to other cmake targets
@@ -33,19 +21,18 @@ config_target_compile_options(project_global_settings) # -O3 -m64 -msse, etc.
 
 # =============================================================================
 # Adds external submodules (e.g. Clean Architecture)
-add_subdirectory(examples)
+# add_subdirectory(examples)
 
 # =============================================================================
 # Adds external headers (e.g. standard library pre-compiled headers)
 # add_subdirectory(include)
 
 # =============================================================================
-# Adds internal components (e.g. core library, etc.)
-# add_subdirectory(lib)
+# Adds internal components (e.g. core library, etc.) add_subdirectory(lib)
 
 # =============================================================================
 # Adds main application (i.e. )
-# add_subdirectory(src)
+add_subdirectory(src)
 
 # =============================================================================
 # Adds application tests (e.g. unit, integration, acceptance, end-to-end, etc.)
